@@ -2,7 +2,7 @@ function RsideBar({ task }) {
     const completedTasks = task.filter((task => task.status === "completed"))
     return (
         <>
-            {completedTasks>0 ? (
+            {completedTasks.length>0 ? (
                 completedTasks.map((task) => {
                     return (
                         <>
