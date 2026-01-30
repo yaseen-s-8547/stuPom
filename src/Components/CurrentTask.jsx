@@ -2,7 +2,7 @@ export default function CurrentTask({task,completeCurrentTask}) {
     const currentTask=task.find(task=>task.status==="current")
     return (
         <>
-            <div className="card  mb-5 current-task-bar ">
+            <div className="card   mb-5 current-task-bar ">
                {currentTask?
                ( <div className="card-body d-flex flex-row  justify-content-center align-items-center px-1 py-0 ps-3">
                     <p className=" fw-bolder fs-5 mt-3 text-center">{currentTask.name}</p>

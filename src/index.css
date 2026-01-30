@@ -94,4 +94,11 @@ h3.card-title{
   .current-task-bar {
     display: none;
   }
+  .center-card{
+    margin-left: 250px;
+  }
+  .current-task-bar{
+    margin-left:250px;
+    
+  }
 }

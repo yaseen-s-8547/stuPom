@@ -3,25 +3,27 @@ import CurrentTask from "../Components/CurrentTask"
 
 function Pomodoro({startNextTask,task,completeCurrentTask}) {
     const [timerMode,setTimerMode]=useState("idle")
-
+   // idle | work_running | work_paused | break_running | break_paused
     const handleStart=()=>{
-        setTimerMode("running")
+        setTimerMode("work_running")
        const hasCurrent = task.some(task=>task.status==="current")
        if(!hasCurrent){
         startNextTask()
        }
     }
     const handlePause=()=>{
-        setTimerMode("paused")
+        setTimerMode("work_paused")
     }
     const handleContinue=()=>{
-        setTimerMode("running")
+        setTimerMode("work_running")
     }
     const handleStop=()=>{
         setTimerMode("idle")
         setRemainingTime(POMODORO_DURATION)
     }
     const POMODORO_DURATION=25*60
+    const BREAK_DURATION=5*60
+    
     const[remainingTime,setRemainingTime]=useState(POMODORO_DURATION)
     const formatTime=(seconds)=>{
         const minutes = Math.floor(seconds/60)
@@ -31,11 +33,15 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
     }
     useEffect(()=>{
        let interValId=null
-       if(timerMode==="running"){
+       if(timerMode.endsWith("_running")){
         interValId=setInterval(()=>{
             setRemainingTime((prev)=>{
                 if(prev<=1){
-                    setTimerMode("idle")
+                    if(timerMode==="work_running"){
+                        setTimerMode("break_running")
+                    }
+                    else if(timerMode==="break_running")
+                        setTimerMode("idle")
                     return 0
                 }
                 return prev-1
@@ -48,6 +54,14 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
         }
        }
     },[timerMode])
+    useEffect(()=>{
+        if(timerMode==="work_running"){
+           setRemainingTime(POMODORO_DURATION)
+        }
+        if(timerMode==="break_running"){
+            setRemainingTime(BREAK_DURATION)
+        }
+    },[timerMode,POMODORO_DURATION, BREAK_DURATION])
     const hasNextTask=task.some(task=>task.status==="next")
     return (
         <div className="d-flex flex-column">
@@ -87,24 +101,29 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
                     <div className="btn  px-5 py-3 rounded-pill coral-btn" onClick={handleStart}>START</div>
                 </div>
                )}
-               {timerMode==="running"&&(
+               {timerMode==="work_running"&&(
                 <div className="d-flex justify-content-center">
                     <div className="btn  px-5 py-3 rounded-pill coral-btn" onClick={handlePause}>Pause</div>
                 </div>
                )}
-               {timerMode==="paused"&&(
+               {timerMode==="work_paused"&&(
                 <div className="d-flex justify-content-center">
                     <div className="btn   py-3 rounded-pill coral-btn" onClick={handleContinue} style={{width:"105px"}}>Continue</div>
                     <div className="btn mx-2  py-3 rounded-pill coral-btn" onClick={handleStop} style={{width:"105px"}}>Stop</div>
                 </div>
                )}
+               {timerMode==="break_running"&&(
+                 <div className="d-flex justify-content-center">
+                    <div className="btn  px-5 py-3 rounded-pill coral-btn" onClick={handleStop}>STOP BREAK</div>
+                </div>
+               )}
                     
 
             </div>
-            <div className="container mt-3 ">
+            <div className="container mt-3  ">
                 <div className="row">
 
-                    <div className="col-12">
+                    <div className="col-12 curr-card">
                         <CurrentTask task={task} completeCurrentTask={completeCurrentTask}/>
                     </div>
 
