@@ -19,6 +19,7 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
     }
     const handleStop=()=>{
         setTimerMode("idle")
+        setRemainingTime(POMODORO_DURATION)
     }
     const POMODORO_DURATION=25*60
     const[remainingTime,setRemainingTime]=useState(POMODORO_DURATION)
@@ -47,6 +48,7 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
         }
        }
     },[timerMode])
+    const hasNextTask=task.some(task=>task.status==="next")
     return (
         <div className="d-flex flex-column">
             { /* This div will become the visual throne of the app */}
@@ -80,7 +82,7 @@ function Pomodoro({startNextTask,task,completeCurrentTask}) {
 
                     </svg>
                 </div>
-               {timerMode==="idle"&&(
+               {timerMode==="idle"&&hasNextTask&&(
                  <div className="d-flex justify-content-center">
                     <div className="btn  px-5 py-3 rounded-pill coral-btn" onClick={handleStart}>START</div>
                 </div>
