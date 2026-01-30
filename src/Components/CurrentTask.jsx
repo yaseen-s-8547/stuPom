@@ -7,13 +7,13 @@ export default function CurrentTask({task}) {
                ( <div class="card-body d-flex flex-row  justify-content-center align-items-center px-1 py-0 ps-3">
                     <p class=" fw-bolder fs-5 mt-3 text-center">{currentTask.name}</p>
                     <div className="d-flex   align-items-center ms-auto">
-                        <i class="bi bi-clock text-warning  btn fs-5"></i>
+                        <button class=" text-warning  btn fs-5">Finish Task</button>
                     </div>
                 </div>):
                ( <div class="card-body d-flex flex-row  justify-content-center align-items-center px-1 py-0 ps-3">
                     <p class=" fw-bolder fs-5 mt-3 text-center">no current task </p>
                     <div className="d-flex   align-items-center ms-auto">
-                        <i class="bi bi-clock text-warning  btn fs-5"></i>
+                       
                     </div>
                 </div>)}
             </div>
