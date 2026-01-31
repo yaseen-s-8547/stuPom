@@ -1,4 +1,5 @@
 import { useState } from "react"
+import CompletedPom from "./CompletedPom"
 
 function AddTask({addTask}) {
     const [taskName,setTaskName]=useState("")
@@ -16,7 +17,9 @@ function AddTask({addTask}) {
                 <button className="btn btn-warning " onClick={handleAdd}>Add</button>
                  </div>
             </div>
-            <div className="col-3"></div>
+            <div className="col-xxl-3  col-sm-12 col-md-12">
+                <CompletedPom/>
+            </div>
         </>
     )
 }

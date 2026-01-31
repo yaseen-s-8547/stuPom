@@ -88,10 +88,22 @@ h3.card-title{
   border-radius: 4px;
   background-color: #FB7185;
 }
+.completed-cards{
+  background-color: #343843;
+}
+.count-card{
+  background-color: #23252D ;
+}
+.count{
+  color:  #FB7185 ;
+}
+
 @media (max-width: 768px) {
   .side-card,
   .next-task-bar,
-  .current-task-bar {
+  
+
+  .card {
     display: none;
   }
   .center-card{
@@ -101,4 +113,5 @@ h3.card-title{
     margin-left:250px;
     
   }
+  
 }
