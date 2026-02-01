@@ -17,7 +17,7 @@ function AddTask({addTask}) {
                 <button className="btn btn-warning " onClick={handleAdd}>Add</button>
                  </div>
             </div>
-            <div className="col-xxl-3  col-sm-12 col-md-12">
+            <div className="col-xxl-3  col-md-12">
                 <CompletedPom/>
             </div>
         </>
