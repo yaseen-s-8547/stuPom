@@ -63,6 +63,10 @@ function Pomodoro({ startNextTask, task, completeCurrentTask }) {
         }
     }, [timerMode, POMODORO_DURATION, BREAK_DURATION])
     const hasNextTask = task.some(task => task.status === "next")
+    const RADIUS = 150
+    const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+    const progressRatio = remainingTime / POMODORO_DURATION
+    const dashOffset = CIRCUMFERENCE * (1 - progressRatio)
     return (
         <div className="d-flex flex-column">
             { /* This div will become the visual throne of the app */}
@@ -76,8 +80,10 @@ function Pomodoro({ startNextTask, task, completeCurrentTask }) {
                             strokeWidth="10"
                             fill="none"
                             strokeLinecap="round"
-                            strokeDasharray="200 1000"
+                            style={{ transition: "stroke-dashoffset 1s linear" }}
                             transform="rotate( -90 180 180)"
+                            strokeDasharray={CIRCUMFERENCE}
+                            strokeDashoffset={dashOffset}
                         />
                         <text
                             x="50%"
