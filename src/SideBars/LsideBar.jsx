@@ -1,4 +1,4 @@
-function LsideBar({ task }) {
+function LsideBar({ task,deleteTask }) {
     const upcommingTasks = task.filter((task => task.status == "next"))
     return (
         <>
@@ -13,7 +13,7 @@ function LsideBar({ task }) {
                                         <h5 className="card-title">{task.name}</h5>
                                         <div className="   ms-auto">
                                             
-                                            <i className="bi bi-x text-warning  btn fs-3"></i>
+                                            <i className="bi bi-x text-warning  btn fs-3" onClick={() => deleteTask(task.id)}></i>
                                         </div>
                                     </div>
                                     

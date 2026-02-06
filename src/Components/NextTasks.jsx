@@ -1,4 +1,4 @@
-function NextTasks({ task }) {
+function NextTasks({ task ,deleteTask}) {
     const nextTasks=task.filter(task=>task.status==="next")
     const nextTask=nextTasks[0]
     return (
@@ -16,7 +16,7 @@ function NextTasks({ task }) {
                                     <p className=" fw-bolder fs-5 mt-3 text-center">{nextTask.name}</p>
                                     <div className="d-flex   align-items-center ms-auto">
                                         <i className="bi bi-clock text-warning  btn fs-5"></i>
-                                        <i className="bi bi-x text-warning  btn fs-3"></i>
+                                        <i className="bi bi-x text-warning  btn fs-3" onClick={() => deleteTask(nextTask.id)}></i>
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@ function NextTasks({ task }) {
                                     <p className=" fw-bolder fs-5 mt-3 text-center">no task available</p>
                                     <div className="d-flex   align-items-center ms-auto">
                                         
-                                        <i className="bi bi-x text-warning  btn fs-3"></i>
+                                        <i className="bi bi-x text-warning  btn fs-3" onClick={() => deleteTask(nextTask.id)}></i>
                                     </div>
                                 </div>
                             </div>)}

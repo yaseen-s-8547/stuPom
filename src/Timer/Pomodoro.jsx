@@ -1,16 +1,28 @@
 import { useState, useEffect } from "react"
 import CurrentTask from "../Components/CurrentTask"
 
-function Pomodoro({ startNextTask, task, completeCurrentTask ,incrementPomodoroCount}) {
-    const [timerMode, setTimerMode] = useState("idle")
+
+function Pomodoro({ startNextTask, task, completeCurrentTask, incrementPomodoroCount }) {
+    const [timerMode, setTimerMode] = useState(() => {
+        return localStorage.getItem("timerMode") || "idle"
+    })
+    const POMODORO_DURATION = 25 * 60
+    const BREAK_DURATION = 5 * 60
+    const [remainingTime, setRemainingTime] = useState(() => {
+        const saved = localStorage.getItem("remainingTime")
+        return saved ? Number(saved) : POMODORO_DURATION
+    })
     // idle | work_running | work_paused | break_running | break_paused
     const handleStart = () => {
-        setTimerMode("work_running")
         const hasCurrent = task.some(task => task.status === "current")
         if (!hasCurrent) {
             startNextTask()
         }
+
+        setRemainingTime(POMODORO_DURATION)
+        setTimerMode("work_running")
     }
+
     const handlePause = () => {
         setTimerMode("work_paused")
     }
@@ -20,11 +32,12 @@ function Pomodoro({ startNextTask, task, completeCurrentTask ,incrementPomodoroC
     const handleStop = () => {
         setTimerMode("idle")
         setRemainingTime(POMODORO_DURATION)
+        localStorage.removeItem("timerMode")
+        localStorage.removeItem("remainingTime")
     }
-    const POMODORO_DURATION = 25 * 60
-    const BREAK_DURATION = 5 * 60
 
-    const [remainingTime, setRemainingTime] = useState(POMODORO_DURATION)
+
+
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60)
         const remainingSeconds = seconds % 60
@@ -55,14 +68,16 @@ function Pomodoro({ startNextTask, task, completeCurrentTask ,incrementPomodoroC
             }
         }
     }, [timerMode])
+
     useEffect(() => {
-        if (timerMode === "work_running") {
-            setRemainingTime(POMODORO_DURATION)
-        }
-        if (timerMode === "break_running") {
-            setRemainingTime(BREAK_DURATION)
-        }
-    }, [timerMode, POMODORO_DURATION, BREAK_DURATION])
+        localStorage.setItem("timerMode", timerMode)
+    }, [timerMode])
+
+    useEffect(() => {
+        localStorage.setItem("remainingTime", remainingTime)
+    }, [remainingTime])
+
+
     const hasNextTask = task.some(task => task.status === "next")
     const RADIUS = 150
     const CIRCUMFERENCE = 2 * Math.PI * RADIUS
@@ -129,7 +144,13 @@ function Pomodoro({ startNextTask, task, completeCurrentTask ,incrementPomodoroC
                     <div className="d-flex justify-content-center gap-2">
                         <div
                             className="btn px-4 py-3 rounded-pill coral-btn"
-                            onClick={() => setTimerMode("break_running")}
+
+                            onClick={() => {
+
+                                setRemainingTime(BREAK_DURATION)
+                                setTimerMode("break_running")
+                            }}
+
                         >
                             START BREAK
                         </div>
