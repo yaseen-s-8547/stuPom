@@ -1,7 +1,7 @@
 import { useState } from "react"
 import CompletedPom from "./CompletedPom"
 
-function AddTask({addTask}) {
+function AddTask({addTask,totalPomodorosCompleted}) {
     const [taskName,setTaskName]=useState("")
     const handleAdd=()=>{
         if(!taskName.trim())return
@@ -18,7 +18,7 @@ function AddTask({addTask}) {
                  </div>
             </div>
             <div className="col-xxl-3  col-md-12">
-                <CompletedPom/>
+                <CompletedPom totalPomodorosCompleted={totalPomodorosCompleted}/>
             </div>
         </>
     )

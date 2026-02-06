@@ -24,7 +24,7 @@ function NextTasks({ task }) {
                                 <div className="card-body d-flex flex-row  justify-content-center align-items-center px-1 py-0 ps-3">
                                     <p className=" fw-bolder fs-5 mt-3 text-center">no task available</p>
                                     <div className="d-flex   align-items-center ms-auto">
-                                        <i className="bi bi-clock text-warning  btn fs-5"></i>
+                                        
                                         <i className="bi bi-x text-warning  btn fs-3"></i>
                                     </div>
                                 </div>

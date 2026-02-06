@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import CurrentTask from "../Components/CurrentTask"
 
-function Pomodoro({ startNextTask, task, completeCurrentTask }) {
+function Pomodoro({ startNextTask, task, completeCurrentTask ,incrementPomodoroCount}) {
     const [timerMode, setTimerMode] = useState("idle")
     // idle | work_running | work_paused | break_running | break_paused
     const handleStart = () => {
@@ -38,6 +38,7 @@ function Pomodoro({ startNextTask, task, completeCurrentTask }) {
                 setRemainingTime((prev) => {
                     if (prev <= 1) {
                         if (timerMode === "work_running") {
+                            incrementPomodoroCount()
                             setTimerMode("break_ready")
                         }
                         else if (timerMode === "break_running")

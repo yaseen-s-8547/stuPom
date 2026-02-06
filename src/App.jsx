@@ -10,6 +10,7 @@ import { useState } from 'react'
 
 function App() {
 const [task,setTask]=useState([])
+const[totalPomodorosCompleted,setTotalPomodorosCompleted]=useState(0)
 const addTask=(taskName)=>{
   setTask((prevTask)=>{
     return[
@@ -22,6 +23,10 @@ const addTask=(taskName)=>{
       }
     ]
   })
+}
+
+const incrementPomodoroCount=()=>{
+  setTotalPomodorosCompleted(prev=>prev+1)
 }
 const startNextTask=()=>{
   setTask((prevTask)=>{
@@ -53,7 +58,7 @@ const completeCurrentTask=()=>{
       <div className="bg-dark text-light min-vh-100">
         <div className="container">
           <div className="row">
-            < AddTask addTask={addTask} />
+            < AddTask addTask={addTask} totalPomodorosCompleted={totalPomodorosCompleted}/>
           </div>
         </div>
         <div className="container mb-5">
@@ -68,7 +73,7 @@ const completeCurrentTask=()=>{
               <LsideBar task={task}/>
             </div>
             <div className="col-6 d-flex justify-content-center align-items-center mb-5">
-              <Pomodoro startNextTask={startNextTask} task={task} completeCurrentTask={completeCurrentTask}/>
+              <Pomodoro startNextTask={startNextTask} task={task} completeCurrentTask={completeCurrentTask} incrementPomodoroCount={incrementPomodoroCount}/>
             </div>
             <div className="col-3  py-4 mt-5  rounded-3 side-card">
               <h3 className=' text-center fw-bolder card-title '>Completed Task</h3>

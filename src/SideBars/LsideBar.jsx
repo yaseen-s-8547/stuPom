@@ -9,24 +9,30 @@ function LsideBar({ task }) {
                         upcommingTasks.map((task) => {
                             return (
                                 <div className="card  task-item" style={{ Width: "18rem;" }}>
-                                    <div className="card-body">
+                                    <div className="card-body d-flex flex-row">
                                         <h5 className="card-title">{task.name}</h5>
+                                        <div className="   ms-auto">
+                                            
+                                            <i className="bi bi-x text-warning  btn fs-3"></i>
+                                        </div>
                                     </div>
+                                    
+
                                 </div>
                             )
 
                         })
                     ) : (
-                       
-                           
-                                <div className="card  task-item" style={{ Width: "18rem;" }}>
-                                    <div className="card-body">
-                                        <h5 className="card-title">No Upcomming Tasks</h5>
-                                    </div>
-                                </div>
-                            
 
-                        
+
+                        <div className="card  task-item" style={{ Width: "18rem;" }}>
+                            <div className="card-body">
+                                <h5 className="card-title">No Upcomming Tasks</h5>
+                            </div>
+                        </div>
+
+
+
                     )}
                 </div>
             </>
